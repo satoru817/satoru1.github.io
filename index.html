@@ -85,6 +85,29 @@
             line-height: 1.6;
         }
         /* その他の既存のスタイル... */
+                /* パスワードフォーム用のスタイル */
+                #password-form {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .password-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
 
         /* 画像関連の新しいスタイル */
         .image-placeholder img {
@@ -94,7 +117,13 @@
         .image-placeholder img:hover {
             opacity: 0.8;
         }
-        
+                /* メインコンテンツ用のスタイル */
+            #main-content {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         /* モーダル関連のスタイル */
         .modal-xl {
             max-width: 90%;
@@ -116,311 +145,327 @@
     </style>
 </head>
 <body>
-    <h1>翔栄成績管理アプリ仕様書</h1>
-
-    <div class="toc">
-        <div class="toc-title">目次</div>
-        <ul>
-            <li><a href="#system">1. システム基本設定</a>
-                <ul>
-                    <li><a href="#school-reg">1.1 塾校舎登録</a></li>
-                    <li><a href="#login">1.2 ログイン</a></li>
-                    <li><a href="#user-permissions">1.3 ユーザーの権限</a></li>
-                    <li><a href="#user-management">1.4 ユーザーの登録</a></li>
-                </ul>
-            </li>
-            <li><a href="#school-student">2. 学校・生徒管理</a>
-                <ul>
-                    <li><a href="#school-registration">2.1 学校の登録</a></li>
-                    <li><a href="#student-registration">2.2 生徒の登録</a>
-                        <ul>
-                            <li><a href="#direct-input">- 直接入力</a></li>
-                            <li><a href="#csv-input">- CSV読み込み</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#student-edit">2.3 生徒情報の編集</a></li>
-                </ul>
-            </li>
-            <li><a href="#class-system">3. クラス管理</a>
-                <ul>
-                    <li><a href="#class-registration">3.1 クラスの登録</a>
-                        <ul>
-                            <li><a href="#group-class">- 集団クラス登録</a></li>
-                            <li><a href="#individual-class">- 個別クラス登録</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#student-status">3.2 生徒の受講状況の編集</a></li>
-                    <li><a href="#teacher-assignment">3.3 クラスの担当教師の設定</a></li>
-                </ul>
-            </li>
-            <li><a href="#test-system">4. テスト管理</a>
-                <ul>
-                    <li><a href="#regular-test">4.1 定期テスト</a>
-                        <ul>
-                            <li><a href="#test-creation">- テストの作成</a></li>
-                            <li><a href="#result-input">- 結果入力</a></li>
-                            <li><a href="#result-analysis">- 結果分析</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#mock-exam">4.2 模試</a></li>
-                    <li><a href="#assessment">4.3 内申</a></li>
-                </ul>
-            </li>
-        </ul>
+     <!-- パスワードフォーム -->
+     <div id="password-form">
+        <div class="password-container">
+            <h2 class="mb-4">翔栄成績管理アプリ仕様書</h2>
+            <div class="mb-3">
+                <input type="password" id="password-input" class="form-control" placeholder="パスワードを入力">
+            </div>
+            <button onclick="checkPassword()" class="btn btn-primary">アクセス</button>
+            <p id="error-message" class="text-danger mt-2" style="display: none;">パスワードが正しくありません</p>
+        </div>
     </div>
 
-    <div class="content">
-        <section id="system" class="content-section">
-            <h2>1. システム基本設定</h2>
+    <div id="main-content">
+        <h1>翔栄成績管理アプリ仕様書</h1>
+
+        <div class="toc">
+            <div class="toc-title">目次</div>
+            <ul>
+                <li><a href="#system">1. システム基本設定</a>
+                    <ul>
+                        <li><a href="#school-reg">1.1 塾校舎登録</a></li>
+                        <li><a href="#login">1.2 ログイン</a></li>
+                        <li><a href="#user-permissions">1.3 ユーザーの権限</a></li>
+                        <li><a href="#user-management">1.4 ユーザーの登録</a></li>
+                    </ul>
+                </li>
+                <li><a href="#school-student">2. 学校・生徒管理</a>
+                    <ul>
+                        <li><a href="#school-registration">2.1 学校の登録</a></li>
+                        <li><a href="#student-registration">2.2 生徒の登録</a>
+                            <ul>
+                                <li><a href="#direct-input">- 直接入力</a></li>
+                                <li><a href="#csv-input">- CSV読み込み</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#student-edit">2.3 生徒情報の編集</a></li>
+                    </ul>
+                </li>
+                <li><a href="#class-system">3. クラス管理</a>
+                    <ul>
+                        <li><a href="#class-registration">3.1 クラスの登録</a>
+                            <ul>
+                                <li><a href="#group-class">- 集団クラス登録</a></li>
+                                <li><a href="#individual-class">- 個別クラス登録</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#student-status">3.2 生徒の受講状況の編集</a></li>
+                        <li><a href="#teacher-assignment">3.3 クラスの担当教師の設定</a></li>
+                    </ul>
+                </li>
+                <li><a href="#test-system">4. テスト管理</a>
+                    <ul>
+                        <li><a href="#regular-test">4.1 定期テスト</a>
+                            <ul>
+                                <li><a href="#test-creation">- テストの作成</a></li>
+                                <li><a href="#result-input">- 結果入力</a></li>
+                                <li><a href="#result-analysis">- 結果分析</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#mock-exam">4.2 模試</a></li>
+                        <li><a href="#assessment">4.3 内申</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    
+        <div class="content">
+            <section id="system" class="content-section">
+                <h2>1. システム基本設定</h2>
+                
+                <section id="school-reg">
+                    <h3>1.1 塾校舎登録</h3>
+                    <p>このアプリケーションではすべてのデータが直接的、あるいは結合テーブルを用いて間接的に塾校舎に結びついています。それゆえにログイン時に塾校舎を選択すると、その校舎の情報のみを編集、閲覧、作成できるようになっています。</p>
+                    <p>塾校舎関連―＞塾校舎作成から作成することができます。</p>
+                    <div class="image-placeholder" ><img src="cram_school_register.png"alt="[塾校舎登録画面の画像]"></div>
+                </section>
+    
+                <section id="login">
+                    <h3>1.2 ログイン</h3>
+                    <p>ログイン時には教室を選択するようになっています。この選択した教室がログインしたユーザーにログイン中のみ結びつくようになっています。その情報を用いて、ログイン中はその選択した校舎の情報のみ閲覧編集できるようになっています。</p>
+                    <div class="image-placeholder"><img src="login.png"[ログイン画面の画像]></div>
+                </section>
+    
+                <section id="user-permissions">
+                    <h3>1.3 ユーザーの権限</h3>
+                    <p>ユーザーの権限にはADMINとGENERALの二種類を用意しています。ADMINユーザーにはアプリケーションを正常に操作した際に生じるすべてのPOSTリクエストを送る権限が付与されています。一方GENERAL ユーザーには一切のPOSTリクエストの権限がありません。</p>
+                    <p>これはGENERALユーザーがデータを閲覧はできるものの一切編集できないことを意味します。アルバイトを雇うとしたらGENERALアカウントを発行するなどといったことを想定しています。このアプリケーションにはPOSTリクエストとGETリクエストしかありません。</p>
+                </section>
+    
+                <section id="user-management">
+                    <h3>1.4 ユーザーの登録</h3>
+                    <p>ユーザー関連―＞新規ユーザー作成からユーザーを登録することができます。ここでは校舎を複数選択することができます。この校舎はその教師が勤務する校舎を想定しています。ログイン時の校舎とは一切関連がありません。この後のクラスと教師の結びつけの時などに使われる情報です。</p>
+                    <div class="image-placeholder"><img src="user_register.png"></div>
+    
+                    <p>ユーザー関連―＞ユーザー一覧からすべての校舎のユーザーを見ることができます。そしてペンのアイコンをクリックすると編集モーダルが開き、ユーザー情報を編集できます。</p>
+                    <div class="image-placeholder"><img src="user_show.png"></div>
+                </section>
+            </section>
+    
+            <section id="school-student" class="content-section">
+                <h2>2. 学校・生徒管理</h2>
+    
+                <section id="school-registration">
+                    <h3>2.1 学校の登録</h3>
+                    <p>学校も塾校舎に結びつくように設計されています。これは校舎間でデータが混ざって混乱することを避けるためです。つまり同じ八王子東中学校に通っている生徒であっても、八王子みなみ野教室に通う生徒は八王子みなみ教室と結びついた八王子東中学校に、そして秋川教室に通う生徒は秋川教室と結びついた八王子東中学校に通うように設定されます。</p>
+                    <p>学校登録は生徒関連―＞学校登録からできます。ここで登録したら、その時ログインユーザーに結びついている校舎と結びつく学校が作成されます。</p>
+                    <div class="image-placeholder"><img src="user_edit.png"></div>
+                </section>
+    
+                <section id="student-registration">
+                    <h3>2.2 生徒の登録</h3>
+                    
+                    <section id="direct-input">
+                        <h4>直接入力</h4>
+                        <p>直接入力は生徒情報―＞生徒登録において初めのフォームを埋めて登録ボタンを押すだけです。このとき表示される学校は、その校舎に結びつく学校のみです。</p>
+                        <div class="image-placeholder"><img src="school_register.png"></div>
+                    </section>
+    
+                    <section id="csv-input">
+                        <h4>CSV読み込み</h4>
+                        <p>塾ナビから校舎ごとの生徒のcsv情報をダウンロードできます。そのｃｓｖを読み込むのが最も簡単です。ただその際に３つの簡単なステップを踏む必要があります：</p>
+                        <ol>
+                            <li><strong>教師情報の消去</strong><br>
+                                塾ナビからダウンロードしたcsvには教師の情報が載っています。それを排除する必要があります。</li>
+                            <li><strong>学校の登録</strong><br>
+                                塾ナビからダウンロードした生徒情報にはその生徒の通う学校名があります。それをすべてその校舎と結びつくように登録する必要があります。</li>
+                            <li><strong>utf-8にエンコーディングを変換する</strong><br>
+                                csvのエンコーディングをutf-8にします。アプリケーションの仕様上utf-8でエンコーディングされたcsvしかサポートしていません。</li>
+                        </ol>
+                        <p>このステップを経たファイルをアップロードすると自動的に生徒コード、生徒名、ふりがな、その生徒が小学校に入学した時の西暦、ステータス、学校が登録されます。</p>
+                        <div class="image-placeholder"><img src="student_register.png"></div>
+                    </section>
+                </section>
+    
+                <section id="student-edit">
+                    <h3>2.3 生徒情報の編集</h3>
+                    <p>生徒一覧―＞生徒情報から生徒の基本的な情報を編集することができます。現学年は小学校に入学したときの西暦から算出しているので年度替わりで変更する必要はありません。4/1に自動的に変更されます。</p>
+                    <p>学校に関しては生徒と直接は結びついておらず、結合テーブルを介して結びついています。その結合テーブルにはその学校に通い始めたときの日付、その学校に通うのをやめた（つまり転校したときの）日付が記録されるようになっています。このページで生徒の通う学校を変更すると、データベースでは変更した日の前日まで元の学校に通っていたことになり、その日から新しい学校に通い始めたことになります。</p>
+                    <div class="image-placeholder"><img src="student_edit.png"></div>
+                </section>
+            </section>
+    
             
-            <section id="school-reg">
-                <h3>1.1 塾校舎登録</h3>
-                <p>このアプリケーションではすべてのデータが直接的、あるいは結合テーブルを用いて間接的に塾校舎に結びついています。それゆえにログイン時に塾校舎を選択すると、その校舎の情報のみを編集、閲覧、作成できるようになっています。</p>
-                <p>塾校舎関連―＞塾校舎作成から作成することができます。</p>
-                <div class="image-placeholder" ><img src="cram_school_register.png"alt="[塾校舎登録画面の画像]"></div>
-            </section>
-
-            <section id="login">
-                <h3>1.2 ログイン</h3>
-                <p>ログイン時には教室を選択するようになっています。この選択した教室がログインしたユーザーにログイン中のみ結びつくようになっています。その情報を用いて、ログイン中はその選択した校舎の情報のみ閲覧編集できるようになっています。</p>
-                <div class="image-placeholder"><img src="login.png"[ログイン画面の画像]></div>
-            </section>
-
-            <section id="user-permissions">
-                <h3>1.3 ユーザーの権限</h3>
-                <p>ユーザーの権限にはADMINとGENERALの二種類を用意しています。ADMINユーザーにはアプリケーションを正常に操作した際に生じるすべてのPOSTリクエストを送る権限が付与されています。一方GENERAL ユーザーには一切のPOSTリクエストの権限がありません。</p>
-                <p>これはGENERALユーザーがデータを閲覧はできるものの一切編集できないことを意味します。アルバイトを雇うとしたらGENERALアカウントを発行するなどといったことを想定しています。このアプリケーションにはPOSTリクエストとGETリクエストしかありません。</p>
-            </section>
-
-            <section id="user-management">
-                <h3>1.4 ユーザーの登録</h3>
-                <p>ユーザー関連―＞新規ユーザー作成からユーザーを登録することができます。ここでは校舎を複数選択することができます。この校舎はその教師が勤務する校舎を想定しています。ログイン時の校舎とは一切関連がありません。この後のクラスと教師の結びつけの時などに使われる情報です。</p>
-                <div class="image-placeholder"><img src="user_register.png"></div>
-
-                <p>ユーザー関連―＞ユーザー一覧からすべての校舎のユーザーを見ることができます。そしてペンのアイコンをクリックすると編集モーダルが開き、ユーザー情報を編集できます。</p>
-                <div class="image-placeholder"><img src="user_show.png"></div>
-            </section>
-        </section>
-
-        <section id="school-student" class="content-section">
-            <h2>2. 学校・生徒管理</h2>
-
-            <section id="school-registration">
-                <h3>2.1 学校の登録</h3>
-                <p>学校も塾校舎に結びつくように設計されています。これは校舎間でデータが混ざって混乱することを避けるためです。つまり同じ八王子東中学校に通っている生徒であっても、八王子みなみ野教室に通う生徒は八王子みなみ教室と結びついた八王子東中学校に、そして秋川教室に通う生徒は秋川教室と結びついた八王子東中学校に通うように設定されます。</p>
-                <p>学校登録は生徒関連―＞学校登録からできます。ここで登録したら、その時ログインユーザーに結びついている校舎と結びつく学校が作成されます。</p>
-                <div class="image-placeholder"><img src="user_edit.png"></div>
-            </section>
-
-            <section id="student-registration">
-                <h3>2.2 生徒の登録</h3>
-                
-                <section id="direct-input">
-                    <h4>直接入力</h4>
-                    <p>直接入力は生徒情報―＞生徒登録において初めのフォームを埋めて登録ボタンを押すだけです。このとき表示される学校は、その校舎に結びつく学校のみです。</p>
-                    <div class="image-placeholder"><img src="school_register.png"></div>
+            <section id="class-system" class="content-section">
+                <h2>3. クラス管理</h2>
+    
+                <section id="class-registration">
+                    <h3>3.1 クラスの登録</h3>
+                    <p>ステータス関連―＞クラス編集からクラスを登録できます。このクラスは直接校舎に結びつきます。</p>
+    
+                    <section id="group-class">
+                        <h4>集団クラス登録</h4>
+                        <p>集団指導クラスのタブを選択すると集団指導クラス登録のフォームが開きます。ここでクラス名、順位を入力すると5科目のクラスが登録されます。クラスは塾に結びつき順位を持ちますが、学年とは結びつきません。これは学年が変わるときのわずらわしさを提言するためです。しかし、この後述べることですが、そのクラスのある学年を担当する教師というものは設定することができるようになっています。</p>
+                        <div class="image-placeholder"><img src="group_class_register.png"></div>
+                        <p>このように入力して一括登録すると、５科目のクラスが作られます。</p>
+                        <div class="image-placeholder"><img src="registered_group_class.png"></div>
+                    </section>
+    
+                    <section id="individual-class">
+                        <h4>個別クラス登録</h4>
+                        <p>先ほどと同じ画面で個別指導クラスのタブを選択すると個別指導クラス登録フォームが開きます。ここでは科目とクラス名のみ記入して登録します。個別クラスはすべて一律で順位はー１となります。この順位の情報はのちの集計処理で使われます。</p>
+                        <div class="image-placeholder"><img src="individual_class_register.png"></div>
+                        <p>国語を選択し、クラス名に国語個別１と入力し登録すると、下のように個別のクラスが登録されます。</p>
+                        <div class="image-placeholder"><img src="individual_class_registered.png"></div>
+                    </section>
                 </section>
-
-                <section id="csv-input">
-                    <h4>CSV読み込み</h4>
-                    <p>塾ナビから校舎ごとの生徒のcsv情報をダウンロードできます。そのｃｓｖを読み込むのが最も簡単です。ただその際に３つの簡単なステップを踏む必要があります：</p>
-                    <ol>
-                        <li><strong>教師情報の消去</strong><br>
-                            塾ナビからダウンロードしたcsvには教師の情報が載っています。それを排除する必要があります。</li>
-                        <li><strong>学校の登録</strong><br>
-                            塾ナビからダウンロードした生徒情報にはその生徒の通う学校名があります。それをすべてその校舎と結びつくように登録する必要があります。</li>
-                        <li><strong>utf-8にエンコーディングを変換する</strong><br>
-                            csvのエンコーディングをutf-8にします。アプリケーションの仕様上utf-8でエンコーディングされたcsvしかサポートしていません。</li>
-                    </ol>
-                    <p>このステップを経たファイルをアップロードすると自動的に生徒コード、生徒名、ふりがな、その生徒が小学校に入学した時の西暦、ステータス、学校が登録されます。</p>
-                    <div class="image-placeholder"><img src="student_register.png"></div>
+    
+                <section id="student-status">
+                    <h3>3.2 生徒の受講状況の編集</h3>
+                    <p>ステータス関連―＞所属クラス編集から生徒の受講クラスを科目ごとに設定できます。先ほど登録したクラスから選ぶ方式です。しかしこれは生徒と直接結びつくわけではなく結合テーブルを介して結びつきます。結合テーブルには生徒がそのクラスにいつからいつまで所属しているかが記録されます。また履歴からその情報を読み取り編集することも可能です。</p>
+                    <div class="image-placeholder"><img src="class_student_register.png"></div>
+                    <p>右の履歴ボタンを押すと、各科目に関してどのクラスにいつからいつ所属していたかが表示されます。またこの期間を編集することも可能です。期間が重複すると以降の集計時にエラーが出る可能性があるので、期間が重複しないように妥当性が自動で判断されます。</p>
+                    <div class="image-placeholder"><img src="class_student_register_history.png"></div>
+                </section>
+    
+                <section id="teacher-assignment">
+                    <h3>3.3 クラスの担当教師の設定</h3>
+                    <p>ステータス関連―＞クラス教師結び付けで、クラスと教師の結びつけを設定、編集することができます。</p>
+                    <p>先ほど申し上げたように、クラスと学年は直接結びついていません。またクラスと教師も直接結びついていません。両方とも結合テーブルを介して結びついています。その結合テーブルに学年の情報及び、教師の情報、担当開始日、担当終了日が保存されるようになっています。また先ほどと同じようにその履歴は確認、編集できるようになっています。</p>
+                    <div class="image-placeholder"><img src="class_teacher_register.png"></div>
+                    <p>時計のしるしのボタンを押すと、担当履歴が開き、それを更新できるようになっています。また、この更新においても期間の重複はチェックされます。</p>
+                    <div class="image-placeholder"><img src="class_teacher_register_history.png"></div>
                 </section>
             </section>
-
-            <section id="student-edit">
-                <h3>2.3 生徒情報の編集</h3>
-                <p>生徒一覧―＞生徒情報から生徒の基本的な情報を編集することができます。現学年は小学校に入学したときの西暦から算出しているので年度替わりで変更する必要はありません。4/1に自動的に変更されます。</p>
-                <p>学校に関しては生徒と直接は結びついておらず、結合テーブルを介して結びついています。その結合テーブルにはその学校に通い始めたときの日付、その学校に通うのをやめた（つまり転校したときの）日付が記録されるようになっています。このページで生徒の通う学校を変更すると、データベースでは変更した日の前日まで元の学校に通っていたことになり、その日から新しい学校に通い始めたことになります。</p>
-                <div class="image-placeholder"><img src="student_edit.png"></div>
-            </section>
-        </section>
-
-        
-        <section id="class-system" class="content-section">
-            <h2>3. クラス管理</h2>
-
-            <section id="class-registration">
-                <h3>3.1 クラスの登録</h3>
-                <p>ステータス関連―＞クラス編集からクラスを登録できます。このクラスは直接校舎に結びつきます。</p>
-
-                <section id="group-class">
-                    <h4>集団クラス登録</h4>
-                    <p>集団指導クラスのタブを選択すると集団指導クラス登録のフォームが開きます。ここでクラス名、順位を入力すると5科目のクラスが登録されます。クラスは塾に結びつき順位を持ちますが、学年とは結びつきません。これは学年が変わるときのわずらわしさを提言するためです。しかし、この後述べることですが、そのクラスのある学年を担当する教師というものは設定することができるようになっています。</p>
-                    <div class="image-placeholder"><img src="group_class_register.png"></div>
-                    <p>このように入力して一括登録すると、５科目のクラスが作られます。</p>
-                    <div class="image-placeholder"><img src="registered_group_class.png"></div>
+    
+            <section id="test-system" class="content-section">
+                <h2>4. テスト管理</h2>
+    
+                <section id="regular-test">
+                    <h3>4.1 定期テスト</h3>
+                    
+                    <section id="test-creation">
+                        <h4>テストの作成</h4>
+                        <p>テスト関連―＞定期テスト作成から定期テストを作成できます。ここでは学年、学期、中間か期末か、学校を選択します。そうすると現年度において、その学校に所属するその学年のテスト結果が全nullで作成されます。</p>
+                        <p>過去年度の定期テスト結果を作成したいときは、テスト関連―＞定期テスト作成（過去）から作成します。ここでは年度と、テスト実施時の学年を入力します。</p>
+                        <div class="image-placeholder"><img src="regular_test_register.png"></div>
+                        <div class="image-placeholder">
+                            <img src="regular_test_register_back_year.png">
+                            <div class="caption">過去の定期テストの作成</div>
+                        </div>
+                        <div class="image-placeholder">
+                            <img src="regular_test_show_by_school.png">
+                            <div class="caption">学校ごとに確認することができます</div>
+                        </div>
+                        <div class="image-placeholder">
+                            <img src="regular_test_show_by_chunk.png">
+                            <div class="caption">同じ年度、学年、学期でまとめて確認することも出来ます</div>
+                        </div>
+                    </section>
+    
+                    <section id="result-input">
+                        <h4>結果入力</h4>
+                        <p>このように作成すると、作成したテーブルをテスト関連―＞定期テスト一覧（学校別）あるいはテスト関連―＞定期テスト関連（塊）で確認できます。</p>
+                        <p>入力編集画面をクリックすると、結果を直接入力、保存できますし、CSVダウンロードをすると、値が空で対応した生徒がすべて入ったエクセルがダウンロードされます。（もとはcsvのつもりだったのですが、足立先生が罫線ほしいとのことでエクセルになりました。）</p>
+                        <div class="image-placeholder">
+                            <img src="regular_test_result_register.png">
+                            <div class="caption">定期テストの結果入力</div>
+                        </div>
+    
+                        <div class="image-placeholder">
+                            <img src="regular_test_csv.png">
+                            <div class="caption">csvの入力フォームをダウンロードできます</div>
+                        </div>
+                        <p>ここに値を記入して、utf-8でcsvとして保存しなおしてからcsvアップロードすることでも結果を保存できます。</p>
+                    </section>
+    
+                    <section id="result-analysis">
+                        <h4>結果分析</h4>
+                        <p>テスト結果一覧のボタンを押すと、点数やクラスで並び替えができる画面が表示されます。</p>
+                        <p>結果分析ボタンをクリックすると、クラスごとの担当者、平均点が表示されます。全てという行は、単科においてはその科目の任意のクラスを受講している人の平均、５科や９科においては任意の科目の任意のクラスを受講している人の平均になります。</p>
+                        <div class="image-placeholder">
+                            <img src="regular_test_result_register_dummy.png">
+                            <div class="caption">ダミーデータを入れてみましょう</div>
+                        </div>
+                        <div class="image-placeholder">
+                            <img src="regular_test_view_all.png">
+                            <div class="caption">この画面で科目ごとに昇順、降順に並び変えられます</div>
+                        </div>
+                        <div class="image-placeholder">
+                            <img src="regular_test_analysis.png">
+                            <div class="caption">クラスごとの平均を出す画面です</div>
+                        </div>
+                    </section>
                 </section>
-
-                <section id="individual-class">
-                    <h4>個別クラス登録</h4>
-                    <p>先ほどと同じ画面で個別指導クラスのタブを選択すると個別指導クラス登録フォームが開きます。ここでは科目とクラス名のみ記入して登録します。個別クラスはすべて一律で順位はー１となります。この順位の情報はのちの集計処理で使われます。</p>
-                    <div class="image-placeholder"><img src="individual_class_register.png"></div>
-                    <p>国語を選択し、クラス名に国語個別１と入力し登録すると、下のように個別のクラスが登録されます。</p>
-                    <div class="image-placeholder"><img src="individual_class_registered.png"></div>
+    
+                <section id="mock-exam">
+                    <h3>4.2 模試</h3>
+                    <p>テスト関連―＞模試csv登録から模試のcsvを登録できます。これは進研模試とハイレベル模試の二つに対応しており、それらの会社のサイトからダウンロードしたcsvのエンコーディングをutf-8に変更したらアップロードできます。ハイレベル模試はcsvから学年情報を読み取れないので学年を選択してください。</p>
+                    <div class="image-placeholder">
+                        <img src="mock_test_csv_upload.png">
+                        <div class="caption">模試のcsvをアップロードする画面</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="mock_test_show.png">
+                        <div class="caption">自動的にファイル名がついて保存されます</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="mock_test_show_result.png">
+                        <div class="caption">模試の結果確認画面</div>
+                    </div>
+                    <p>登録すると上のように表示されます。削除を押すとデータが削除できます。ファイル名をクリックすると詳細画面が開きます。</p>
+                    <p>列をクリックするとモーダルでデータを確認できるようになっています。</p>
+                    <p>ランキング作成を押すと、各科目のランキングが作れます。上位あるいは下位の模試の受験者以下の任意の人数で可能です。</p>
+                    <div class="image-placeholder">
+                        <img src="mock_test_modal.png">
+                        <div class="caption">モーダル表示</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="mock_test_ranking.png">
+                        <div class="caption">ランキング画面をそのままスクリーンショットにとって教室に張り付けられます。</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="mock_test_analysis.png">
+                        <div class="caption">模試の結果分析画面ではクラスごとの点数、偏差値の平均が分かります</div>
+                    </div>
+                    <p>偏差値と点数を非表示にできるので、それらを非表示にしたうえで、みなみ野教室では張り出しています（上位２０位）。生徒は自分の立ち位置を確認するのに使えます。</p>
+                    <p>結果分析ボタンを押すと平均点、平均偏差値が表示されます。</p>
+                </section>
+    
+                <section id="assessment">
+                    <h3>4.3 内申</h3>
+                    <p>内申に関してはほぼ定期テストと同じです。内申関連―＞内申一括作成から年度、学年、学期の情報を入れて作成ボタンを押すと該当の内申が一括で値nullで作成されます。作成した内申は学校ごとに見て、編集することもできますし、まとめた形でも確認編集できます。</p>
+                    <div class="image-placeholder">
+                        <img src="school_record_register.png">
+                        <div class="caption">内申の作成</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="school_record_by_school.png">
+                        <div class="caption">内申の確認（学校ごと）</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="school_record_result_register.png">
+                        <div class="caption">内申の結果入力画面</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="school_record_show_by_chunk.png">
+                        <div class="caption">内申（塊）の確認画面</div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="school_record_result_show_all.png">
+                        <div class="caption">内申ランキング確認画面（▽で並び替え）</div>
+                    </div>
+                    <p>全件表示と結果分析はほぼ定期テストと同じです。ただ、換算内申と入試点の表示が全件表示画面では加わっています。</p>
                 </section>
             </section>
-
-            <section id="student-status">
-                <h3>3.2 生徒の受講状況の編集</h3>
-                <p>ステータス関連―＞所属クラス編集から生徒の受講クラスを科目ごとに設定できます。先ほど登録したクラスから選ぶ方式です。しかしこれは生徒と直接結びつくわけではなく結合テーブルを介して結びつきます。結合テーブルには生徒がそのクラスにいつからいつまで所属しているかが記録されます。また履歴からその情報を読み取り編集することも可能です。</p>
-                <div class="image-placeholder"><img src="class_student_register.png"></div>
-                <p>右の履歴ボタンを押すと、各科目に関してどのクラスにいつからいつ所属していたかが表示されます。またこの期間を編集することも可能です。期間が重複すると以降の集計時にエラーが出る可能性があるので、期間が重複しないように妥当性が自動で判断されます。</p>
-                <div class="image-placeholder"><img src="class_student_register_history.png"></div>
-            </section>
-
-            <section id="teacher-assignment">
-                <h3>3.3 クラスの担当教師の設定</h3>
-                <p>ステータス関連―＞クラス教師結び付けで、クラスと教師の結びつけを設定、編集することができます。</p>
-                <p>先ほど申し上げたように、クラスと学年は直接結びついていません。またクラスと教師も直接結びついていません。両方とも結合テーブルを介して結びついています。その結合テーブルに学年の情報及び、教師の情報、担当開始日、担当終了日が保存されるようになっています。また先ほどと同じようにその履歴は確認、編集できるようになっています。</p>
-                <div class="image-placeholder"><img src="class_teacher_register.png"></div>
-                <p>時計のしるしのボタンを押すと、担当履歴が開き、それを更新できるようになっています。また、この更新においても期間の重複はチェックされます。</p>
-                <div class="image-placeholder"><img src="class_teacher_register_history.png"></div>
-            </section>
-        </section>
-
-        <section id="test-system" class="content-section">
-            <h2>4. テスト管理</h2>
-
-            <section id="regular-test">
-                <h3>4.1 定期テスト</h3>
-                
-                <section id="test-creation">
-                    <h4>テストの作成</h4>
-                    <p>テスト関連―＞定期テスト作成から定期テストを作成できます。ここでは学年、学期、中間か期末か、学校を選択します。そうすると現年度において、その学校に所属するその学年のテスト結果が全nullで作成されます。</p>
-                    <p>過去年度の定期テスト結果を作成したいときは、テスト関連―＞定期テスト作成（過去）から作成します。ここでは年度と、テスト実施時の学年を入力します。</p>
-                    <div class="image-placeholder"><img src="regular_test_register.png"></div>
-                    <div class="image-placeholder">
-                        <img src="regular_test_register_back_year.png">
-                        <div class="caption">過去の定期テストの作成</div>
+        </div>
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="image-placeholder">
-                        <img src="regular_test_show_by_school.png">
-                        <div class="caption">学校ごとに確認することができます</div>
+                    <div class="modal-body">
+                        <img src="" id="modalImage" alt="拡大画像">
                     </div>
-                    <div class="image-placeholder">
-                        <img src="regular_test_show_by_chunk.png">
-                        <div class="caption">同じ年度、学年、学期でまとめて確認することも出来ます</div>
-                    </div>
-                </section>
-
-                <section id="result-input">
-                    <h4>結果入力</h4>
-                    <p>このように作成すると、作成したテーブルをテスト関連―＞定期テスト一覧（学校別）あるいはテスト関連―＞定期テスト関連（塊）で確認できます。</p>
-                    <p>入力編集画面をクリックすると、結果を直接入力、保存できますし、CSVダウンロードをすると、値が空で対応した生徒がすべて入ったエクセルがダウンロードされます。（もとはcsvのつもりだったのですが、足立先生が罫線ほしいとのことでエクセルになりました。）</p>
-                    <div class="image-placeholder">
-                        <img src="regular_test_result_register.png">
-                        <div class="caption">定期テストの結果入力</div>
-                    </div>
-
-                    <div class="image-placeholder">
-                        <img src="regular_test_csv.png">
-                        <div class="caption">csvの入力フォームをダウンロードできます</div>
-                    </div>
-                    <p>ここに値を記入して、utf-8でcsvとして保存しなおしてからcsvアップロードすることでも結果を保存できます。</p>
-                </section>
-
-                <section id="result-analysis">
-                    <h4>結果分析</h4>
-                    <p>テスト結果一覧のボタンを押すと、点数やクラスで並び替えができる画面が表示されます。</p>
-                    <p>結果分析ボタンをクリックすると、クラスごとの担当者、平均点が表示されます。全てという行は、単科においてはその科目の任意のクラスを受講している人の平均、５科や９科においては任意の科目の任意のクラスを受講している人の平均になります。</p>
-                    <div class="image-placeholder">
-                        <img src="regular_test_result_register_dummy.png">
-                        <div class="caption">ダミーデータを入れてみましょう</div>
-                    </div>
-                    <div class="image-placeholder">
-                        <img src="regular_test_view_all.png">
-                        <div class="caption">この画面で科目ごとに昇順、降順に並び変えられます</div>
-                    </div>
-                    <div class="image-placeholder">
-                        <img src="regular_test_analysis.png">
-                        <div class="caption">クラスごとの平均を出す画面です</div>
-                    </div>
-                </section>
-            </section>
-
-            <section id="mock-exam">
-                <h3>4.2 模試</h3>
-                <p>テスト関連―＞模試csv登録から模試のcsvを登録できます。これは進研模試とハイレベル模試の二つに対応しており、それらの会社のサイトからダウンロードしたcsvのエンコーディングをutf-8に変更したらアップロードできます。ハイレベル模試はcsvから学年情報を読み取れないので学年を選択してください。</p>
-                <div class="image-placeholder">
-                    <img src="mock_test_csv_upload.png">
-                    <div class="caption">模試のcsvをアップロードする画面</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="mock_test_show.png">
-                    <div class="caption">自動的にファイル名がついて保存されます</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="mock_test_show_result.png">
-                    <div class="caption">模試の結果確認画面</div>
-                </div>
-                <p>登録すると上のように表示されます。削除を押すとデータが削除できます。ファイル名をクリックすると詳細画面が開きます。</p>
-                <p>列をクリックするとモーダルでデータを確認できるようになっています。</p>
-                <p>ランキング作成を押すと、各科目のランキングが作れます。上位あるいは下位の模試の受験者以下の任意の人数で可能です。</p>
-                <div class="image-placeholder">
-                    <img src="mock_test_modal.png">
-                    <div class="caption">モーダル表示</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="mock_test_ranking.png">
-                    <div class="caption">ランキング画面をそのままスクリーンショットにとって教室に張り付けられます。</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="mock_test_analysis.png">
-                    <div class="caption">模試の結果分析画面ではクラスごとの点数、偏差値の平均が分かります</div>
-                </div>
-                <p>偏差値と点数を非表示にできるので、それらを非表示にしたうえで、みなみ野教室では張り出しています（上位２０位）。生徒は自分の立ち位置を確認するのに使えます。</p>
-                <p>結果分析ボタンを押すと平均点、平均偏差値が表示されます。</p>
-            </section>
-
-            <section id="assessment">
-                <h3>4.3 内申</h3>
-                <p>内申に関してはほぼ定期テストと同じです。内申関連―＞内申一括作成から年度、学年、学期の情報を入れて作成ボタンを押すと該当の内申が一括で値nullで作成されます。作成した内申は学校ごとに見て、編集することもできますし、まとめた形でも確認編集できます。</p>
-                <div class="image-placeholder">
-                    <img src="school_record_register.png">
-                    <div class="caption">内申の作成</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="school_record_by_school.png">
-                    <div class="caption">内申の確認（学校ごと）</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="school_record_result_register.png">
-                    <div class="caption">内申の結果入力画面</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="school_record_show_by_chunk.png">
-                    <div class="caption">内申（塊）の確認画面</div>
-                </div>
-                <div class="image-placeholder">
-                    <img src="school_record_result_show_all.png">
-                    <div class="caption">内申ランキング確認画面（▽で並び替え）</div>
-                </div>
-                <p>全件表示と結果分析はほぼ定期テストと同じです。ただ、換算内申と入試点の表示が全件表示画面では加わっています。</p>
-            </section>
-        </section>
-    </div>
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="" id="modalImage" alt="拡大画像">
                 </div>
             </div>
         </div>
     </div>
+
+    
     <script>
         // すべての画像にクリックイベントを追加
         document.addEventListener('DOMContentLoaded', function() {
@@ -435,6 +480,39 @@
                 });
             });
         });
+
+
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const correctPassword = 'shoei2024'; // パスワードをここで設定
+
+            if (password === correctPassword) {
+                // パスワードが正しい場合
+                document.getElementById('password-form').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                // パスワード認証状態を保存
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                // パスワードが間違っている場合
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('password-input').value = '';
+            }
+        }
+
+        // Enterキーでもパスワードチェックを実行
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // ページ読み込み時に認証状態をチェック
+        window.onload = function() {
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                document.getElementById('password-form').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>
