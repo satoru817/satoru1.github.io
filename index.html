@@ -166,6 +166,10 @@
         max-width: 90vw;
         object-fit: contain;
       }
+
+      #modalImage{
+        width:80%!important;
+      }
     </style>
   </head>
   <body>
@@ -304,11 +308,6 @@
               ユーザー関連―＞新規ユーザー作成からユーザーを登録することができます。ここでは校舎を複数選択することができます。この校舎はその教師が勤務する校舎を想定しています。ログイン時の校舎とは一切関連がありません。この後のクラスと教師の結びつけの時などに使われる情報です。
             </p>
             <div class="image-placeholder"><img src="user_registration.gif" /></div>
-
-            <p>
-              ユーザー関連―＞ユーザー一覧からすべての校舎のユーザーを見ることができます。そしてペンのアイコンをクリックすると編集モーダルが開き、ユーザー情報を編集できます。
-            </p>
-            <div class="image-placeholder"><img src="user_show.png" /></div>
           </section>
         </section>
 
@@ -318,12 +317,11 @@
           <section id="school-registration">
             <h3>2.1 学校の登録</h3>
             <p>
-              学校も塾校舎に結びつくように設計されています。これは校舎間でデータが混ざって混乱することを避けるためです。つまり同じ八王子東中学校に通っている生徒であっても、八王子みなみ野教室に通う生徒は八王子みなみ教室と結びついた八王子東中学校に、そして秋川教室に通う生徒は秋川教室と結びついた八王子東中学校に通うように設定されます。
+              学校も塾校舎に結びつくように設計されています。これは校舎間でデータが混ざって混乱することを避けるためです。つまり同じ八王子東中学校に通っている生徒であっても、八王子みなみ野教室に通う生徒は八王子みなみ野教室と結びついた八王子東中学校に、そして秋川教室に通う生徒は秋川教室と結びついた八王子東中学校に通うように設定されます。
             </p>
-            <p>
-              学校登録は生徒関連―＞学校登録からできます。ここで登録したら、その時ログインユーザーに結びついている校舎と結びつく学校が作成されます。
-            </p>
-            <div class="image-placeholder"><img src="user_edit.png" /></div>
+            <div class="image-placeholder">
+              <img src="registration_of_school.gif" /></div>
+              <div class="caption">学校の登録と削除、編集</div>
           </section>
 
           <section id="student-registration">
@@ -335,7 +333,8 @@
                 直接入力は生徒情報―＞生徒登録において初めのフォームを埋めて登録ボタンを押すだけです。このとき表示される学校は、その校舎に結びつく学校のみです。
               </p>
               <div class="image-placeholder">
-                <img src="school_register.png" />
+                <img src="student_registration.gif" />
+                <div class="caption"></div>
               </div>
             </section>
 
@@ -362,7 +361,7 @@
                 このステップを経たファイルをアップロードすると自動的に生徒コード、生徒名、ふりがな、その生徒が小学校に入学した時の西暦、ステータス、学校が登録されます。
               </p>
               <div class="image-placeholder">
-                <img src="student_register.png" />
+                <img src="student_registration_from_csv.gif" />
               </div>
             </section>
           </section>
@@ -375,7 +374,9 @@
             <p>
               学校に関しては生徒と直接は結びついておらず、結合テーブルを介して結びついています。その結合テーブルにはその学校に通い始めたときの日付、その学校に通うのをやめた（つまり転校したときの）日付が記録されるようになっています。このページで生徒の通う学校を変更すると、データベースでは変更した日の前日まで元の学校に通っていたことになり、その日から新しい学校に通い始めたことになります。
             </p>
-            <div class="image-placeholder"><img src="生徒情報編集.png" /></div>
+            <div class="image-placeholder"><img src="student_edit.gif" />
+              <div class="caption">生徒の編集</div>
+            </div>
           </section>
         </section>
 
