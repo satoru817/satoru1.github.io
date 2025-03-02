@@ -250,6 +250,14 @@
               <li><a href="#assessment">4.3 内申</a></li>
             </ul>
           </li>
+          <li>
+            <a href="#sales">5. 営業管理</a>
+            <ul>
+                <li>
+                    <a href=""></a>
+                </li>
+            </ul>
+          </li>
         </ul>
       </div>
 
@@ -265,7 +273,7 @@
             <p>塾校舎関連―＞塾校舎作成から作成することができます。</p>
             <div class="image-placeholder">
               <img
-                src="cram_school_register.png"
+                src="cramSchool_registration.gif"
                 alt="[塾校舎登録画面の画像]"
               />
             </div>
@@ -278,8 +286,9 @@
               教師はその教師に紐づくすべての校舎のデータにアクセスできますが、ログイン時に選択した校舎のデータがデフォルトで表示されるように制御されています。
             </p>
             <div class="image-placeholder">
-              <img src="login.png" [ログイン画面の画像] />
+              <img src="login.gif" [ログイン画面の画像] />
             </div>
+            <p>ログイン時にCAT APIとajax通信をし、ランダムに猫の画像を一枚表示します。これは以下の研究に基づいています。<a href="https://www.itmedia.co.jp/news/articles/1509/04/news137.html">かわいい”を感じると注意力アップ？</a></p>
           </section>
 
           <section id="user-permissions">
@@ -294,7 +303,7 @@
             <p>
               ユーザー関連―＞新規ユーザー作成からユーザーを登録することができます。ここでは校舎を複数選択することができます。この校舎はその教師が勤務する校舎を想定しています。ログイン時の校舎とは一切関連がありません。この後のクラスと教師の結びつけの時などに使われる情報です。
             </p>
-            <div class="image-placeholder"><img src="user_register.png" /></div>
+            <div class="image-placeholder"><img src="user_registration.gif" /></div>
 
             <p>
               ユーザー関連―＞ユーザー一覧からすべての校舎のユーザーを見ることができます。そしてペンのアイコンをクリックすると編集モーダルが開き、ユーザー情報を編集できます。
@@ -632,8 +641,8 @@
     </div>
 
     <section id ="sales">
-        <h3>5.1 営業管理</h3>
-        <h2>5.1.1 ファネル</h2>
+        <h3>5 営業管理</h3>
+        <h2>5.1 ファネル</h2>
         <p>
             営業ー＞ファネルからファネルに関する操作ができます。
         </p>
@@ -642,12 +651,32 @@
             <div class="caption">ファネルを操作する画面</div>
         </div>
 
-        <h2>5.1.2 アクション</h2>
+        <h2>5.2 アクション</h2>
         <p>営業-> アクションからアクションに関する操作ができます。</p>
         <div class="image-placeholder">
             <img src="action.gif">
             <div class="caption">アクションを操作する画面</div>
         </div>
+
+        <h2>5.3 問い合わせ一覧</h2>
+        <p>営業-> 問い合わせ一覧から問い合わせに関する操作ができます。</p>
+        <div class="image-placeholder">
+          <img src="inquiry_making.gif">
+          <div class="caption">問い合わせを作成するモーダル</div>
+        </div>
+        <p>問い合わせの詳細な情報を入力して保存できます。多くの項目に空白を許しています。</p>
+        
+        <div class="image-placeholder">
+          <img src="inquiry_search.gif">
+          <div class="caption">問い合わせの検索と並べ替え</div>
+        </div>
+        <p>問い合わせは最終の対応日などで並べ替えることができます。また校舎や名前などのフィルター検索が可能です。</p>
+
+        <div class="image-placeholder">
+          <img src="inquiry_to_student.gif">
+          <div class="caption">問い合わせから入塾の手続き</div>
+        </div>
+        <p>問い合わせ内容から直接生徒登録をすることができます。この際に塾ナビと整合性を保つために塾ナビコードを入力するようにできています。</p>
     </section>
 
     <script>
