@@ -398,14 +398,12 @@
                 集団指導クラスのタブを選択すると集団指導クラス登録のフォームが開きます。ここでクラス名、順位を入力すると5科目のクラスが登録されます。クラスは塾に結びつき順位を持ちますが、学年とは結びつきません。これは学年が変わるときのわずらわしさを提言するためです。しかし、この後述べることですが、そのクラスのある学年を担当する教師というものは設定することができるようになっています。
               </p>
               <div class="image-placeholder">
-                <img src="group_class_register.png" />
+                <img src="making_group_class.gif" />
+                <div class="caption">集団クラスの作成、編集</div>
               </div>
               <p>
                 このように入力して一括登録すると、５科目のクラスが作られます。
               </p>
-              <div class="image-placeholder">
-                <img src="registered_group_class.png" />
-              </div>
             </section>
 
             <section id="individual-class">
@@ -414,14 +412,10 @@
                 先ほどと同じ画面で個別指導クラスのタブを選択すると個別指導クラス登録フォームが開きます。ここでは科目とクラス名のみ記入して登録します。個別クラスはすべて一律で順位はー１となります。この順位の情報はのちの集計処理で使われます。
               </p>
               <div class="image-placeholder">
-                <img src="individual_class_register.png" />
+                <img src="single_class_registration.gif" />
+                <div class="caption">個別クラスの作成、編集</div>
               </div>
-              <p>
-                国語を選択し、クラス名に国語個別１と入力し登録すると、下のように個別のクラスが登録されます。
-              </p>
-              <div class="image-placeholder">
-                <img src="individual_class_registered.png" />
-              </div>
+
             </section>
           </section>
 
@@ -431,13 +425,14 @@
               ステータス関連―＞所属クラス編集から生徒の受講クラスを科目ごとに設定できます。先ほど登録したクラスから選ぶ方式です。しかしこれは生徒と直接結びつくわけではなく結合テーブルを介して結びつきます。結合テーブルには生徒がそのクラスにいつからいつまで所属しているかが記録されます。また履歴からその情報を読み取り編集することも可能です。
             </p>
             <div class="image-placeholder">
-              <img src="class_student_register.png" />
+              <img src="student_class_registration.gif" />
             </div>
             <p>
               右の履歴ボタンを押すと、各科目に関してどのクラスにいつからいつ所属していたかが表示されます。またこの期間を編集することも可能です。期間が重複すると以降の集計時にエラーが出る可能性があるので、期間が重複しないように妥当性が自動で判断されます。
             </p>
             <div class="image-placeholder">
-              <img src="class_student_register_history.png" />
+              <img src="class_registration_history.gif" />
+              <div class="caption">クラス所属履歴の編集</div>
             </div>
           </section>
 
@@ -450,13 +445,8 @@
               先ほど申し上げたように、クラスと学年は直接結びついていません。またクラスと教師も直接結びついていません。両方とも結合テーブルを介して結びついています。その結合テーブルに学年の情報及び、教師の情報、担当開始日、担当終了日が保存されるようになっています。また先ほどと同じようにその履歴は確認、編集できるようになっています。
             </p>
             <div class="image-placeholder">
-              <img src="class_teacher_register.png" />
-            </div>
-            <p>
-              時計のしるしのボタンを押すと、担当履歴が開き、それを更新できるようになっています。また、この更新においても期間の重複はチェックされます。
-            </p>
-            <div class="image-placeholder">
-              <img src="class_teacher_register_history.png" />
+              <img src="class_teacher_link.gif" />
+              <div class="caption">クラス教師結びつき編集</div>
             </div>
           </section>
         </section>
@@ -477,10 +467,6 @@
               </p>
               <div class="image-placeholder">
                 <img src="regular_test_register.png" />
-              </div>
-              <div class="image-placeholder">
-                <img src="regular_test_register_back_year.png" />
-                <div class="caption">過去の定期テストの作成</div>
               </div>
               <div class="image-placeholder">
                 <img src="regular_test_show_by_school.png" />
